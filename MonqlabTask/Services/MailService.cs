@@ -7,29 +7,27 @@ using MonqlabTask.Helpers;
 
 namespace MonqlabTask.Services;
 
-public class EmailService : IEmailService
+public class MailService : IMailService
 {
     private readonly AppSettings _appSettings;
     
-    public EmailService(IOptions<AppSettings> appSettings)
+    public MailService(IOptions<AppSettings> appSettings)
     {
         _appSettings = appSettings.Value;
     }
 
-    public void Send(IEnumerable<string> to, string subject, string body, string? from = null)
+    public async Task Send(IEnumerable<string> to, string subject, string body, string? from = null)
     {
-        // create message
         var email = new MimeMessage();
         email.From.Add(MailboxAddress.Parse(from ?? _appSettings.EmailFrom));
         email.To.AddRange(to.Select(MailboxAddress.Parse).Cast<InternetAddress>().ToList());
         email.Subject = subject;
         email.Body = new TextPart(TextFormat.Text) { Text = body };
         
-        // send email
         using var smtp = new SmtpClient();
-        smtp.Connect(_appSettings.SmtpHost, _appSettings.SmtpPort, SecureSocketOptions.StartTls);
-        smtp.Authenticate(_appSettings.SmtpUser, _appSettings.SmtpPass);
-        smtp.Send(email);
-        smtp.Disconnect(true);
+        await smtp.ConnectAsync(_appSettings.SmtpHost, _appSettings.SmtpPort, SecureSocketOptions.StartTls);
+        await smtp.AuthenticateAsync(_appSettings.SmtpUser, _appSettings.SmtpPass);
+        await smtp.SendAsync(email);
+        await smtp.DisconnectAsync(true);
     }
 }

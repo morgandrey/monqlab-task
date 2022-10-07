@@ -13,9 +13,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<EmailDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddAutoMapper(typeof(Program));
+
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
-builder.Services.AddScoped<IRepository, MailRepository>();
-builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IMailRepository, MailRepository>();
+builder.Services.AddScoped<IMailService, MailService>();
 
 var app = builder.Build();
 
