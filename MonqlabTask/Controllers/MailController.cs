@@ -29,6 +29,10 @@ public class MailController : ControllerBase
         _dateTimeProvider = dateTimeProvider;
     }
 
+    /// <summary>
+    /// Gets a list of all saved mails from the database.
+    /// </summary>
+    /// <returns>The list of all mails.</returns>
     [HttpGet(Name = "GetEmails")]
     public async Task<IActionResult> Get()
     {
@@ -37,6 +41,11 @@ public class MailController : ControllerBase
         return Ok(mailDtos);
     }
 
+    /// <summary>
+    /// Sends a mail.
+    /// </summary>
+    /// <param name="createMailDto">The create mail dto.</param>
+    /// <returns>Returns OK if the mail was delivered, BadRequest otherwise.</returns>
     [HttpPost(Name = "PostEmail")]
     public async Task<IActionResult> Post(CreateMailDto createMailDto)
     {

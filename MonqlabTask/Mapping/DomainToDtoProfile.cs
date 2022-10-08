@@ -4,6 +4,9 @@ using MonqlabTask.Models;
 
 namespace MonqlabTask.Mapping;
 
+/// <summary>
+/// Domain to dto profile.
+/// </summary>
 public class DomainToDtoProfile : Profile
 {
     public DomainToDtoProfile()

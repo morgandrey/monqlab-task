@@ -8,6 +8,7 @@ namespace MonqlabTask.DataAccess
         public EmailDbContext(DbContextOptions<EmailDbContext> options)
             : base(options)
         {
+            Database.EnsureCreated();
         }
 
         public virtual DbSet<Mail> Mail { get; set; } = null!;

@@ -13,6 +13,7 @@ public class MailRepository : IMailRepository
         _dbContext = dbContext;
     }
 
+    /// <inheritdoc />
     public async Task<IEnumerable<Mail>> GetAll()
     {
         return await _dbContext.Mail
@@ -20,7 +21,8 @@ public class MailRepository : IMailRepository
             .ThenInclude(x => x.Recipient)
             .ToListAsync();
     }
-
+    
+    /// <inheritdoc />
     public async Task Add(Mail mail, IEnumerable<string> recipientEmails)
     {
         await _dbContext.Database.BeginTransactionAsync();

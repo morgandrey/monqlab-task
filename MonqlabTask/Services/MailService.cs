@@ -16,6 +16,7 @@ public class MailService : IMailService
         _appSettings = appSettings.Value;
     }
 
+    /// <inheritdoc />
     public async Task Send(IEnumerable<string> to, string subject, string body, string? from = null)
     {
         var email = new MimeMessage();
