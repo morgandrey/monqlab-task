@@ -17,6 +17,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddScoped<IMailRepository, MailRepository>();
+builder.Services.AddScoped<IRecipientRepository, RecipientRepository>();
 builder.Services.AddScoped<IDateTimeProvider, DateTimeProvider>();
 builder.Services.AddScoped<IMailService, MailService>();
 

@@ -1,4 +1,6 @@
-﻿namespace MonqlabTask.Services;
+﻿using MonqlabTask.Models;
+
+namespace MonqlabTask.Services;
 
 public interface IMailService
 {
@@ -9,5 +11,12 @@ public interface IMailService
     /// <param name="subject">The mail subject.</param>
     /// <param name="body">The mail body.</param>
     /// <param name="from">From.</param>
-    Task Send(IEnumerable<string> to, string subject, string body, string? from = null);
+    Task SendMail(IEnumerable<string> to, string subject, string body, string? from = null);
+
+    /// <summary>
+    /// SaveMailsInDb the mail to database.
+    /// </summary>
+    /// <param name="mail">The mail.</param>
+    /// <param name="recipientEmails">The list of recipient's mails.</param>
+    Task SaveMailsInDb(Mail mail, IEnumerable<string> recipientEmails);
 }

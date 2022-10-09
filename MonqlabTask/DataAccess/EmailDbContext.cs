@@ -13,7 +13,7 @@ namespace MonqlabTask.DataAccess
 
         public virtual DbSet<Mail> Mail { get; set; } = null!;
         public virtual DbSet<MailRecipient> MailRecipients { get; set; } = null!;
-        public virtual DbSet<Recipient> Recipients { get; set; } = null!;
+        public virtual DbSet<Recipient?> Recipients { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

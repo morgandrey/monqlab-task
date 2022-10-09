@@ -56,7 +56,7 @@ public class MailController : ControllerBase
 
         try
         {
-            await _mailService.Send(listOfRecipientsEmails,
+            await _mailService.SendMail(listOfRecipientsEmails,
                 createMailDto.Subject,
                 createMailDto.Body);
         }
@@ -76,7 +76,7 @@ public class MailController : ControllerBase
             MailFailedMessage = mailFailedMessage
         };
 
-        await _mailRepository.Add(mail, listOfRecipientsEmails);
+        await _mailService.SaveMailsInDb(mail, listOfRecipientsEmails);
 
         if (!mailResult)
         {
